@@ -8,6 +8,9 @@ import "./addCoupon.css";
 import "react-datepicker/dist/react-datepicker.css";
 import jwtAxios from "../../../util/JWTaxios";
 import globals from "../../../util/global";
+import advNotify from "../../../util/notify_advanced";
+import { store } from "../../../redux/store";
+import {AddCoupon as addCoupon} from "../../../redux/couponsState"
 
 
 function AddCoupon(): JSX.Element {
@@ -36,8 +39,7 @@ function AddCoupon(): JSX.Element {
         setPrice(Number.parseFloat((args.target as HTMLInputElement).value));
     };
     const imgHandler = (event: { target: { files: (Blob | MediaSource)[]; }; }) => {
-        setImage(URL.createObjectURL(event.target.files[0]));
-        
+        setImage(URL.createObjectURL(event.target.files[0]));   
     };
 
     const send = (coupon: Coupon) => {
@@ -46,6 +48,18 @@ function AddCoupon(): JSX.Element {
         coupon.endDate = endDate;
         console.log(coupon);
         jwtAxios.post(globals.urls.addCoupon,coupon)
+        .then(response => {
+            if(response.status < 300){
+                advNotify.success("נוסף קופון");
+                store.dispatch(addCoupon(coupon));
+            }
+            else{
+                advNotify.error("משהו לא עבד");
+            }
+        })
+        .catch(err =>{
+            advNotify.error(err.message);
+        })
     };
     
     return (

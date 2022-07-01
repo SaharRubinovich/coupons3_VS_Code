@@ -1,4 +1,4 @@
-import { authAction, userLogout } from './authState';
+import { authAction, userLogin, userLogout } from './authState';
 import jwtAxios from './../util/JWTaxios';
 import globals from './../util/global';
 import advNotify from './../util/notify_advanced';
@@ -17,6 +17,7 @@ export enum companyActionType{
     UpdateCompany = "UpdateCompany",
     AddCompany = "AddCompany",
     CompanyLogOut = "CompanyLogOut",
+    CompanyLogin = "CompanyLogin"
 }
 
 export interface companyAction{
@@ -41,6 +42,10 @@ export function addCompany(company:Company):companyAction{
 }
 export function logoutCompany():companyAction{
     return {type: companyActionType.CompanyLogOut}
+}
+
+export function loginCompany(company: Company):companyAction { 
+    return { type: companyActionType.CompanyLogin, payload: company}
 }
 
 export function companyReducer(currentState: companyState = new companyState, action: companyAction):companyState{
@@ -83,6 +88,9 @@ export function companyReducer(currentState: companyState = new companyState, ac
             store.dispatch(userLogout())
             newState.company = null;
             break;
+        case companyActionType.CompanyLogin:
+            // store.dispatch(userLogin()) // not needed as it happens on logout
+            newState.company = action.payload.company;
     }
     return newState;
 }

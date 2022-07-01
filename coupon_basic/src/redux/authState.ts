@@ -28,6 +28,7 @@ export function userLogout():authAction{
     return {type: authActionType.UserLogout};
 }
 
+
 export function updateToken(userToken:string):authAction{
     return {type: authActionType.UpdateToken, payload:userToken};
 }

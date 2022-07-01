@@ -18,7 +18,7 @@ import advNotify from "../../../util/notify_advanced";
 import { useNavigate } from "react-router-dom";
 import { store } from "../../../redux/store";
 //import { useDispatch } from 'react-redux';
-import { downloadCompanies } from "../../../redux/companyState";
+import { downloadCompanies, loginCompany } from "../../../redux/companyState";
 import { useState } from "react";
 import { userLogin } from "../../../redux/authState";
 import { useDispatch } from "react-redux";
@@ -65,7 +65,7 @@ function Login(): JSX.Element {
     jwtAxios
       .get<Company>(globals.urls.getCompanyDetails)
       .then((response) => {
-          store.getState().companyState.company = response.data;
+          store.dispatch(loginCompany(response.data))
       })
       .catch((err) => {
         advNotify.error(err);
