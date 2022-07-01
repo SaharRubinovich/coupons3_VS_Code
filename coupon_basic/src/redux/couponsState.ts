@@ -1,0 +1,61 @@
+
+import Coupon from './../modal/Coupon';
+
+export class couponsState{
+    coupons: Coupon[] = [];
+    numOfCoupons: number;
+}
+
+export enum couponsActionType{
+    DownloadCoupons = "DownloadCoupons",
+    AddCoupon = "AddCoupon",
+    UpdateCoupons = "UpdateCoupons",
+    DeleteCoupons = "DeleteCoupons"
+}
+
+export interface couponsAction{
+    type: couponsActionType,
+    payload?: any;
+}
+
+export function DownloadCoupons(coupons:Coupon[]):couponsAction{
+    return{type: couponsActionType.DownloadCoupons, payload: coupons};
+}
+
+export function AddCoupon(coupon:Coupon):couponsAction{
+    return{type: couponsActionType.AddCoupon ,payload: coupon}
+}
+
+export function UpdateCoupon(coupon:Coupon):couponsAction{
+    return{type: couponsActionType.UpdateCoupons ,payload: coupon}
+}
+
+export function DeleteCoupon(couponId: number):couponsAction{
+    return{type: couponsActionType.DeleteCoupons ,payload:couponId}
+}
+
+export function couponsReducer(currentState: couponsState = new couponsState, action: couponsAction):couponsState{
+    var newState = {...currentState}
+
+    switch(action.type){
+        case couponsActionType.DownloadCoupons:
+            newState.coupons = action.payload;
+            var lastId = action.payload[action.payload.length -1]
+            newState.numOfCoupons = lastId.id;
+            break;
+        case couponsActionType.AddCoupon:
+            action.payload.id = newState.numOfCoupons;
+            newState.numOfCoupons += 1;
+            newState.coupons.push(action.payload);
+            break;
+        case couponsActionType.UpdateCoupons:
+            var updatedCoupons = newState.coupons.filter(item => item.id != action.payload.id);
+            newState.coupons = updatedCoupons;
+            newState.coupons.push(action.payload);
+            break;
+        case couponsActionType.DeleteCoupons:
+            newState.coupons = newState.coupons.filter(item=>item.id!=action.payload);
+            break;
+    }
+    return newState;
+}
