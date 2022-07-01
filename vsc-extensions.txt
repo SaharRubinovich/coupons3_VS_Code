@@ -1,0 +1,17 @@
+abusaidm.html-snippets
+aslamanver.vsc-export
+burkeholland.simple-react-snippets
+emmanuelbeziat.vscode-great-icons
+esbenp.prettier-vscode
+formulahendry.auto-close-tag
+formulahendry.code-runner
+k--kato.intellij-idea-keybindings
+kleber-swf.unity-code-snippets
+ms-dotnettools.csharp
+NuclleaR.vscode-extension-auto-import
+oderwat.indent-rainbow
+ritwickdey.LiveServer
+TabNine.tabnine-vscode
+vscode-icons-team.vscode-icons
+xabikos.JavaScriptSnippets
+xl-dev-tools.dev-tools
