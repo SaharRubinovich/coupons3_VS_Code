@@ -27,6 +27,7 @@ function UpdateCoupon(): JSX.Element {
     const {id} = location.state as any;
 
     useEffect(()=>{
+        console.log(id);
         if(store.getState().authState.userType === "COMPANY"){
         setCoupon(store.getState().couponsState.coupons.find(item => item.id == id));
         } else{

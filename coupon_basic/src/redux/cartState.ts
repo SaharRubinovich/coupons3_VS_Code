@@ -29,8 +29,8 @@ export function addItem(coupon: Coupon): cartAction {
 export function removeItem(couponId: Number): cartAction {
   return { type: cartActionType.removeItem, payload: couponId };
 }
-export function purchaseItem(): cartAction {
-  return { type: cartActionType.purchase };
+export function purchaseItem(coupon: Coupon): cartAction {
+  return { type: cartActionType.purchase , payload: coupon};
 }
 export function clearItems(): cartAction {
   return { type: cartActionType.clearItems };
@@ -53,7 +53,20 @@ export function cartReducer(
         newState.coupons = newState.coupons.filter(item => item.id != action.payload);
       break;
     case cartActionType.purchase:
-      newState.coupons.forEach(item => {
+      jwtAxios.put(globals.urls.purchaseCoupon, action.payload)
+      .then(response => {
+        if(response.status < 300){
+          action.payload.amount -= 1;
+          store.dispatch(UpdateCoupon(action.payload));
+          advNotify.success("קופון נרכש");
+        } else{
+          advNotify.error("בעיה ברכישת קופון");
+        }
+      })
+      .catch(err =>{
+        advNotify.error(err.message);
+      })
+      /*      newState.coupons.forEach(item => {
         jwtAxios.put(globals.urls.purchaseCoupon, item)
         .then(response => {
           if (response.status < 300){
@@ -69,6 +82,7 @@ export function cartReducer(
           advNotify.error(err);
         })
       })
+      */
       break;
     case cartActionType.clearItems:
         newState.coupons = null;

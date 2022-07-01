@@ -26,7 +26,7 @@ function GetCouponsByMaxPrice(): JSX.Element {
     },[price])
 
     const resetChoice = () => {
-        setPrice(0);
+        setFilteredCoupons(coupons);
     };
 
     const changeHandler = (event: { target: { value: string; }; }) => {

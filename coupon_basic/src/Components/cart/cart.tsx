@@ -14,7 +14,7 @@ function Cart(): JSX.Element {
     },[store.getState().cartState.coupons]);
 
     const purchaseHandler = () => {
-        store.dispatch(purchaseItem())
+        //store.dispatch(purchaseItem())
     };
 
     const closeWindow = () => {

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { store } from "../../../../redux/store";
-import { addItem } from "../../../../redux/cartState";
+import { addItem, purchaseItem } from "../../../../redux/cartState";
 
 interface SingleCouponProps {
 	coupon: Coupon;
@@ -26,7 +26,7 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
     };
 
     const addToCartButton = () => {
-        store.dispatch(addItem(props.coupon));
+        store.dispatch(purchaseItem(props.coupon));
     };
 
     useEffect(()=>{
@@ -54,7 +54,7 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
                     <Card.Text>{"כמות: " + amount}</Card.Text>
                     <Card.Text>{"מחיר: " + props.coupon.price}</Card.Text>
                     {userType == "COMPANY" ? <><Button variant="contained" color="primary" onClick={onClickUpdate} style={{ margin: "10px" }}>עדכן קופון</Button><Button variant="contained" color="error" onClick={onClickDelete} style={{ margin: "10px" }}>מחק קופון</Button></> : ''}
-                    {userType == "CUSTOMER" ? <><Button variant="contained" color="primary" onClick={addToCartButton} disabled={!validCoupon}>הוספה לסל</Button></>:''}
+                    {userType == "CUSTOMER" ? <><Button variant="contained" color="primary" onClick={addToCartButton} disabled={!validCoupon}>רכוש</Button></>:''}
                     
                 </Card.Body>
             </Card>
