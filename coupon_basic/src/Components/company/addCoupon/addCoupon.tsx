@@ -6,6 +6,8 @@ import { categories } from "../../user/allCoupons/Categories/Categories";
 import DatePicker from "react-datepicker";
 import "./addCoupon.css";
 import "react-datepicker/dist/react-datepicker.css";
+import jwtAxios from "../../../util/JWTaxios";
+import globals from "../../../util/global";
 
 
 function AddCoupon(): JSX.Element {
@@ -43,6 +45,7 @@ function AddCoupon(): JSX.Element {
         coupon.startDate = startDate;
         coupon.endDate = endDate;
         console.log(coupon);
+        jwtAxios.post(globals.urls.addCoupon,coupon)
     };
     
     return (
@@ -50,7 +53,7 @@ function AddCoupon(): JSX.Element {
 			<h1>הוספת קופון</h1><hr/>
             <div className="SolidBox">
                 <form onSubmit={handleSubmit(send)}>
-                <TextField name="title" label="כותרת" variant="outlined" disabled
+                <TextField name="title" label="כותרת" variant="outlined"
                 {...register("title")}
                 />
                 <br/><br/>
@@ -75,7 +78,7 @@ function AddCoupon(): JSX.Element {
                 <br/><br/>
                 <DatePicker selected={startDate} onChange={(date:Date) => setStartDate(date)} required/>
                 <br/><br/>
-                <DatePicker selected={endDate} onChange={(date:Date) => setEndDate(date)} required/>
+                <DatePicker selected={endDate} minDate={startDate} onChange={(date:Date) => setEndDate(date)} required/>
                 <br/><br/>
                 <Select label="Category" name="Category" onChange={choice} style={{textAlign: 'center'}}>
                 <MenuItem value={categories.COSMETICS}>Cosmetics</MenuItem>
