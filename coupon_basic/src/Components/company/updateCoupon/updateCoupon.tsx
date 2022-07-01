@@ -25,10 +25,10 @@ function UpdateCoupon(): JSX.Element {
 
 
     const {id} = location.state as any;
-
+    const state = store.getState()
     useEffect(()=>{
         console.log(id);
-        if(store.getState().authState.userType === "COMPANY"){
+        if(state.authState.userType === "COMPANY"){
         setCoupon(store.getState().couponsState.coupons.find(item => item.id == id));
         } else{
             advNotify.error("Must be logged in");
@@ -67,6 +67,11 @@ function UpdateCoupon(): JSX.Element {
         })
          */
     };
+    if(!coupon){
+        return (
+            <div/>
+        )
+    }
     return (
         <div className="updateCoupon SolidBox">
 			<h1>עידכון קופון</h1><hr/>

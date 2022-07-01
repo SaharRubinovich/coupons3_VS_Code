@@ -36,6 +36,7 @@ export function DeleteCoupon(couponId: number):couponsAction{
 
 export function couponsReducer(currentState: couponsState = new couponsState, action: couponsAction):couponsState{
     var newState = {...currentState}
+    newState.coupons = [...currentState.coupons]
 
     switch(action.type){
         case couponsActionType.DownloadCoupons:

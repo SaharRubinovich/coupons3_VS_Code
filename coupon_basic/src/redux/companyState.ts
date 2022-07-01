@@ -90,7 +90,7 @@ export function companyReducer(currentState: companyState = new companyState, ac
             break;
         case companyActionType.CompanyLogin:
             // store.dispatch(userLogin()) // not needed as it happens on logout
-            newState.company = action.payload.company;
+            newState.company = action.payload;
     }
     return newState;
 }

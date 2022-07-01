@@ -58,6 +58,7 @@ function AddCoupon(): JSX.Element {
             }
         })
         .catch(err =>{
+            console.log(err);
             advNotify.error(err.message);
         })
     };
@@ -78,13 +79,13 @@ function AddCoupon(): JSX.Element {
                 />
                 <section>{errors.description?.message}</section>
                 <br/><br/>
-                <TextField name="amout" label="כמות" variant="outlined"
+                <TextField type="number"  name="amout" label="כמות" variant="outlined"
                 {...register("amount", {required:{value:true, message:"חייב להכניס כמות"}})}
                 onChange={amoutHandler}
                 />
                 <section>{errors.amount?.message}</section>
                 <br/><br/>
-                <TextField name="price" label="מחיר" variant="outlined"
+                <TextField type="number" name="price" label="מחיר" variant="outlined"
                 {...register("price", {required:{value:true, message:"חייב להכניס מחיר"}})}
                 onChange={priceHandler}
                 />
@@ -94,7 +95,7 @@ function AddCoupon(): JSX.Element {
                 <br/><br/>
                 <DatePicker selected={endDate} minDate={startDate} onChange={(date:Date) => setEndDate(date)} required/>
                 <br/><br/>
-                <Select label="Category" name="Category" onChange={choice} style={{textAlign: 'center'}}>
+                <Select label="Category" defaultValue={""} name="Category" onChange={choice} style={{textAlign: 'center'}}>
                 <MenuItem value={categories.COSMETICS}>Cosmetics</MenuItem>
                 <MenuItem value={categories.ELECTRICITY}>Electricity</MenuItem>
                 <MenuItem value={categories.FASHION}>Fasion</MenuItem>

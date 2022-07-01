@@ -97,7 +97,6 @@ function Login(): JSX.Element {
         
       })
       .then(() => {
-        console.log(5)
         if (store.getState().authState.userType === "ADMIN") {
           adminLogin();
         }
