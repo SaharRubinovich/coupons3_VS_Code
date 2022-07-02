@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import UpdateCompany from "../../admin/updateCompany/updateCompany";
 import globals from "../../../util/global";
 import { store } from './../../../redux/store';
+import jwtAxios from "../../../util/JWTaxios";
+import advNotify from "../../../util/notify_advanced";
+import { deleteCompany } from "../../../redux/companyState";
 
 interface SignleCompanyProps{
     company: Company;
@@ -14,7 +17,21 @@ function SignleCompany(props: SignleCompanyProps): JSX.Element {
     const navigate = useNavigate();
 
     const deleteComapnyHandler = () => {
-        navigate("/admin/deleteCompany", {state:{id: props.company.id}})
+        
+        jwtAxios.delete(globals.urls.deleteCompany+props.company.id)
+        .then(response =>{
+            if(response.status < 300){
+            advNotify.success("חברה נמחקה!");
+            store.dispatch(deleteCompany(props.company.id));
+            } else {
+                advNotify.error("בעיה קרתה במחיקת חברה");
+                console.log(response);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        
     }
 
     const showCoupons = () => {

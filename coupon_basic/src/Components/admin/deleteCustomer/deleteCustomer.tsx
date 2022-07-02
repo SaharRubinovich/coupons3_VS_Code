@@ -17,25 +17,7 @@ function DeleteCustomer(): JSX.Element {
 
     const {id} = location.state as any;
 
-    useEffect(()=>{
-        if(store.getState().authState.userType != "ADMIN"){
-            return navigate("login");
-        }
-        if(id===undefined){
-            return navigate("../admin/getAllCustomers", {replace:true});
-        }
-        jwtAxios.delete(globals.urls.deleteCustomer+id)
-        .then(response =>{
-            advNotify.success("Customer " + id + " was Deleted!");
-            store.dispatch(deleteCustomer(id));
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        .finally(()=>{
-            navigate("../admin/getAllCustomers", {replace:true});
-        })
-    },[])
+   
     
     return (
         <div className="deleteCustomer">

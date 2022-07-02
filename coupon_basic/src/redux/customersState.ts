@@ -46,7 +46,8 @@ export function customerLogout():customersAction{
 
 export function customerReducer(currentState: customersState = new customersState, action: customersAction):customersState{
     var newState = {...currentState}
-
+    if("customers" in newState && newState.customers){
+        newState.customers = [...newState.customers]}
     switch (action.type){
         case customersActionType.DownloadCustomer:
             newState.customers = action.payload;
@@ -58,17 +59,7 @@ export function customerReducer(currentState: customersState = new customersStat
             //action.payload.id = newState.numOfCustomers;
             //newState.numOfCustomers += 1;
             //newState.customers.push(action.payload);
-            jwtAxios.get(globals.urls.listCustomers)
-            .then(response => {
-                if(response.status < 300){
-                    store.dispatch(downloadCustomer(response.data));
-                }else{
-                    advNotify.error("error adding customer");
-                }
-            })
-            .catch(err =>{
-                advNotify.error(err.message);
-            })
+           
         break;
        
         case customersActionType.UpdateCustomer:
@@ -78,7 +69,7 @@ export function customerReducer(currentState: customersState = new customersStat
         break;
         
         case customersActionType.DeleteCustomer:
-            newState.customers = newState.customers.filter(item => item.id != action.payload.id);
+            newState.customers = newState.customers.filter(item => item.id != action.payload);
         break;
         case customersActionType.CustomerLogout:
             console.log("hi");

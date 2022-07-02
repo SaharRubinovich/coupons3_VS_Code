@@ -13,7 +13,7 @@ import DeleteCustomer from "../../admin/deleteCustomer/deleteCustomer";
 import UpdateCustomer from "../../admin/updateCustomer/updateCustomer";
 import Page404 from "../../user/page404/page404";
 import AddCoupon from "../../company/addCoupon/addCoupon";
-import DeleteCoupon from './../../company/deleteCoupon/deleteCoupon';
+import DeleteCouponPage from './../../company/deleteCoupon/deleteCoupon';
 import GetAllCompanyCoupons from "../../company/getAllCompanyCoupons/getAllCompanyCoupons";
 import GetCompanyDetails from "../../company/getCompanyDetails/getCompanyDetails";
 import GetCouponByCategory from './../../company/getCouponByCategory/getCouponByCategory';
@@ -50,7 +50,7 @@ function MenuRouting(): JSX.Element {
 
                 {/* company */}
                 <Route path="company/addCoupon" element={<AddCoupon/>}/>
-                <Route path="company/deleteCoupon" element={<DeleteCoupon/>}/>
+                <Route path="company/deleteCoupon" element={<DeleteCouponPage/>}/>
                 <Route path="company/getAllCompanyCoupons" element={<GetAllCompanyCoupons/>}/>
                 <Route path="company/getCompanyDetails" element={<GetCompanyDetails/>}/>
                 <Route path="company/getCouponsByCategory" element={<GetCouponByCategory/>}/>

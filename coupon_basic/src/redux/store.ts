@@ -18,5 +18,3 @@ const reducers = combineReducers({authState:authReducer, companyState:companyRed
 ,couponsState: couponsReducer, cartState:cartReducer})
 export const store = configureStore({reducer: reducers});
 
-
-

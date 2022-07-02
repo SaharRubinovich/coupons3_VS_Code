@@ -11,7 +11,7 @@ interface stateId{
     from: {id:number}
 }
 
-function DeleteCoupon(): JSX.Element {
+function DeleteCouponPage(): JSX.Element {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -45,4 +45,4 @@ function DeleteCoupon(): JSX.Element {
     );
 }
 
-export default DeleteCoupon;
+export default DeleteCouponPage;

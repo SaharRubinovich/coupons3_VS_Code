@@ -50,6 +50,7 @@ export function loginCompany(company: Company):companyAction {
 
 export function companyReducer(currentState: companyState = new companyState, action: companyAction):companyState{
     var newState = {...currentState}; 
+    newState.companies = [...currentState.companies];
 
     switch(action.type){
         case companyActionType.DownloadCompanies:
@@ -62,17 +63,7 @@ export function companyReducer(currentState: companyState = new companyState, ac
             //action.payload.id = newState.numOfCompanies;
             //newState.numOfCompanies += 1;
             //newState.company.push(action.payload);          
-            jwtAxios.get(globals.urls.listCompanies)
-            .then(response => {
-                if(response.status < 300){
-                    store.dispatch(downloadCompanies(response.data));
-                }else{
-                    advNotify.error("error adding company");
-                }
-            })
-            .catch(err =>{
-                advNotify.error(err.message);
-            })
+           
         break;
 
         case companyActionType.DeleteCompany:

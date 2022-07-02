@@ -7,7 +7,7 @@ import jwtAxios from './../../../util/JWTaxios';
 import globals from "../../../util/global";
 import advNotify from "../../../util/notify_advanced";
 import { store } from "../../../redux/store";
-import { addCustomer } from "../../../redux/customersState";
+import { addCustomer, downloadCustomer } from "../../../redux/customersState";
 
 function AddCustomer(): JSX.Element {
     const [firstName,setFirstName] = useState('');
@@ -50,7 +50,17 @@ function AddCustomer(): JSX.Element {
         .then(response => {
             console.log(response);
             advNotify.success("לקוח חדש נוסף");
-            store.dispatch(addCustomer(msg));
+            jwtAxios.get(globals.urls.listCustomers)
+            .then(response => {
+                if(response.status < 300){
+                    store.dispatch(downloadCustomer(response.data));
+                }else{
+                    advNotify.error("error adding customer");
+                }
+            })
+            .catch(err =>{
+                advNotify.error(err.message);
+            })
             setFirstName('');
             setLastName('');
             setEmail('');

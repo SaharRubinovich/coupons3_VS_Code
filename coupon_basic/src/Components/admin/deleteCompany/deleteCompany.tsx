@@ -28,20 +28,6 @@ function DeleteCompany(): JSX.Element {
         }
         console.log(globals.urls.deleteCompany+id);
         
-        jwtAxios.delete(globals.urls.deleteCompany+id)
-        .then(response =>{
-            if(response.status < 300){
-            advNotify.success("חברה נמחקה!");
-            store.dispatch(deleteCompany(id));
-            } else {
-                advNotify.error("בעיה קרתה במחיקת חברה");
-                console.log(response);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        
         navigate("../admin/getAllCompanies", {replace:true});
     },[])
 

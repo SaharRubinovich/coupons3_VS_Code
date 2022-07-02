@@ -2,7 +2,6 @@ import Coupon from "../modal/Coupon";
 import jwtAxios from "../util/JWTaxios";
 import advNotify from "../util/notify_advanced";
 import globals from './../util/global';
-import { UpdateCoupon } from "./couponsState";
 import { store } from "./store";
 
 export class cartState {
@@ -13,7 +12,6 @@ export class cartState {
 export enum cartActionType {
   addItem = "addItem",
   removeItem = "removeItem",
-  purchase = "purchase",
   clearItems = "clearItems",
   toggleCart = "toggleCart"
 }
@@ -29,9 +27,7 @@ export function addItem(coupon: Coupon): cartAction {
 export function removeItem(couponId: Number): cartAction {
   return { type: cartActionType.removeItem, payload: couponId };
 }
-export function purchaseItem(coupon: Coupon): cartAction {
-  return { type: cartActionType.purchase , payload: coupon};
-}
+
 export function clearItems(): cartAction {
   return { type: cartActionType.clearItems };
 }
@@ -51,38 +47,6 @@ export function cartReducer(
       break;
     case cartActionType.removeItem:
         newState.coupons = newState.coupons.filter(item => item.id != action.payload);
-      break;
-    case cartActionType.purchase:
-      jwtAxios.put(globals.urls.purchaseCoupon, action.payload)
-      .then(response => {
-        if(response.status < 300){
-          action.payload.amount -= 1;
-          store.dispatch(UpdateCoupon(action.payload));
-          advNotify.success("קופון נרכש");
-        } else{
-          advNotify.error("בעיה ברכישת קופון");
-        }
-      })
-      .catch(err =>{
-        advNotify.error(err.message);
-      })
-      /*      newState.coupons.forEach(item => {
-        jwtAxios.put(globals.urls.purchaseCoupon, item)
-        .then(response => {
-          if (response.status < 300){
-            item.amount -= 1;
-            store.dispatch(UpdateCoupon(item));
-            newState.coupons = newState.coupons.filter(coupons => coupons.id != item.id);
-          }
-          else{
-            advNotify.error("Error accord while trying to purchase");
-          }
-        })
-        .catch(err => {
-          advNotify.error(err);
-        })
-      })
-      */
       break;
     case cartActionType.clearItems:
         newState.coupons = null;

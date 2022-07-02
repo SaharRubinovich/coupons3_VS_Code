@@ -1,7 +1,7 @@
 import { Backdrop, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import Coupon from "../../modal/Coupon";
-import { purchaseItem, toggleCart } from "../../redux/cartState";
+import { toggleCart } from "../../redux/cartState";
 import { store } from "../../redux/store";
 import "./cart.css";
 import SingleCartItem from "./singleCartItem/singleCartItem";

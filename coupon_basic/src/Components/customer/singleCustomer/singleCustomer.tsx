@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { store } from "../../../redux/store";
+import { deleteCustomer } from "../../../redux/customersState";
+import advNotify from "../../../util/notify_advanced";
 
 interface singleCustomerProps{
     item: Customer;
@@ -17,7 +19,14 @@ function SingleCustomer(props: singleCustomerProps): JSX.Element {
     const [isAdmin, setIsAdmin] = useState(false);
 
     const deleteCustomerHandler = () => {
-       navigate("../admin/deleteCustomer", {replace:true , state:{id: props.item.id}})
+        jwtAxios.delete(globals.urls.deleteCustomer+props.item.id)
+        .then(response =>{
+            advNotify.success("Customer " + props.item.id + " was Deleted!");
+            store.dispatch(deleteCustomer(props.item.id));
+        })
+        .catch(err => {
+            console.log(err);
+        })
     };
 
     const updateCustomerHandler = () => {

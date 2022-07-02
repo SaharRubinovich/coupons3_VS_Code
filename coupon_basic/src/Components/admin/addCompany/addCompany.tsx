@@ -7,7 +7,7 @@ import jwtAxios from "../../../util/JWTaxios";
 import "./addCompany.css";
 import advNotify from './../../../util/notify_advanced';
 import { store } from "../../../redux/store";
-import { addCompany } from "../../../redux/companyState";
+import { addCompany, downloadCompanies } from "../../../redux/companyState";
 
 function AddCompany(): JSX.Element {
  const [name,setName] = useState('');
@@ -33,6 +33,17 @@ function AddCompany(): JSX.Element {
       .then(response => {
         if(response.status < 300){
         advNotify.success("חברה נוספה!")
+        jwtAxios.get(globals.urls.listCompanies)
+        .then(response => {
+            if(response.status < 300){
+                store.dispatch(downloadCompanies(response.data));
+            }else{
+                advNotify.error("error adding company");
+            }
+        })
+        .catch(err =>{
+            advNotify.error(err.message);
+        })
         setName('');
         setPassword('');
         setEmail('');
@@ -43,7 +54,6 @@ function AddCompany(): JSX.Element {
       .catch(err => {
         advNotify.error("שגיאה במהלך ההוספה")
       })
-      store.dispatch(addCompany(newCompany));
   }
 
   const nameHandler = (event: { target: { value: string; }; }) => {

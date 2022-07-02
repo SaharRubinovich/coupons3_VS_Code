@@ -30,6 +30,7 @@ function UpdateCompany(): JSX.Element {
 
     const send = (msg:Company) => {
         msg.id = id;
+        msg.name = name;
         console.log(msg);
         
         jwtAxios.put(globals.urls.updateCompany, msg)
