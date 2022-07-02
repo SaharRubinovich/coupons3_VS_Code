@@ -5,7 +5,7 @@ import { Badge, BadgeProps, Button, IconButton, styled } from "@mui/material";
 import { store } from "../../../redux/store";
 import { userLogout } from "./../../../redux/authState";
 import { logoutCompany } from "../../../redux/companyState";
-import { CustomerLogout } from "../../../redux/customersState";
+import { customerLogout } from "../../../redux/customersState";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -26,10 +26,12 @@ function MyHeader(): JSX.Element {
   const [userType, setUserType] = useState("");
   const logout = () => {
     if (store.getState().authState.userType == "CUSTOMER") {
-        store.dispatch(CustomerLogout());
+      //store.dispatch(userLogout());
+      console.log("hi1")
+      store.dispatch(userLogout());
     }
     if (store.getState().authState.userType == "COMPANY") {
-      store.dispatch(logoutCompany());
+      store.dispatch(userLogout());
     }
     if (store.getState().authState.userType == "ADMIN") {
       store.dispatch(userLogout());
@@ -63,16 +65,6 @@ function MyHeader(): JSX.Element {
   });
   return (
     <div className="myHeader">
-      <div style={{ position: "absolute", margin: "20px", marginTop: "30px" }}>
-        <IconButton aria-label="cart" onClick={openCart}>
-          <StyledBadge
-            badgeContent={store.getState().cartState.coupons.length}
-            color="secondary"
-          >
-            <ShoppingCartIcon />
-          </StyledBadge>
-        </IconButton>
-      </div>
       <h1>מערכת פאקינג קופונים</h1>
       <br />
       <div style={{ textAlign: "end", padding: "0px 0px 0px 30px" }}>

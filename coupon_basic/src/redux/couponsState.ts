@@ -1,5 +1,8 @@
 
+import globals from '../util/global';
+import jwtAxios from '../util/JWTaxios';
 import Coupon from './../modal/Coupon';
+import { store } from './store';
 
 export class couponsState{
     coupons: Coupon[] = [];
@@ -45,9 +48,13 @@ export function couponsReducer(currentState: couponsState = new couponsState, ac
             newState.numOfCoupons = lastId.id;
             break;
         case couponsActionType.AddCoupon:
-            action.payload.id = newState.numOfCoupons;
-            newState.numOfCoupons += 1;
-            newState.coupons.push(action.payload);
+            jwtAxios.get(globals.urls.getAllCoupons)
+            .then(response => {
+                store.dispatch(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
             break;
         case couponsActionType.UpdateCoupons:
             var updatedCoupons = newState.coupons.filter(item => item.id != action.payload.id);

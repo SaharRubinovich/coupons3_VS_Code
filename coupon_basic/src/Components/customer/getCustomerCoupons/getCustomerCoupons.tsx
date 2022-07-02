@@ -9,7 +9,7 @@ function GetCustomerCoupons(): JSX.Element {
     const [valid, isValid] = useState(false);
 
     useEffect(()=>{
-        setCoupons(store.getState().customersState.customer.coupons);
+        setCoupons(store.getState().authState.customer.coupons);
         if(coupons.length !== undefined){
             isValid(true);
         }

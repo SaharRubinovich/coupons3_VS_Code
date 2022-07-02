@@ -15,7 +15,7 @@ function GetCustomerDetails(): JSX.Element {
             advNotify.error("Must Be logged in");
             navigate("/login");
         } else{
-            setCustomer(store.getState().customersState.customer);
+            setCustomer(store.getState().authState.customer);
         }
     },[])
     return (

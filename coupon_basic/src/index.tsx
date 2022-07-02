@@ -4,15 +4,17 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import MainLayout from "./Components/mainLayout/mainLayout";
 import Cart from "./Components/cart/cart";
-import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <>
+    <Provider store={store}>
       <MainLayout />
+    </Provider>
   </>
 );
 

@@ -28,7 +28,7 @@ function SingleCustomer(props: singleCustomerProps): JSX.Element {
         if (store.getState().authState.userType === "ADMIN") {
             navigate("../admin/customerCoupons",{replace:true,state:{id: props.item.id}})
         } else{
-            navigate("..customer/getCustomerCoupons", {replace:true})
+            navigate("../customer/getCustomerCoupons", {replace:true})
         }
     };
 

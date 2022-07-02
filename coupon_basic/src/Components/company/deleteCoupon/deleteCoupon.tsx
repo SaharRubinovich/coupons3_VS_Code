@@ -19,8 +19,6 @@ function DeleteCoupon(): JSX.Element {
 
     useEffect(()=>{
         if(store.getState().authState.userType === "COMPANY"){
-        console.log(globals.urls.deleteCoupon + id);
-        /** 
         jwtAxios.delete(globals.urls.deleteCoupon + id)
         .then(response => {
             if(response.status < 300){
@@ -34,7 +32,7 @@ function DeleteCoupon(): JSX.Element {
         .catch(err => {
             advNotify.error(err.message);
         })
-        */
+        
     }else{
         advNotify.error("Must be logged in");
         navigate("/login");

@@ -85,8 +85,7 @@ export function companyReducer(currentState: companyState = new companyState, ac
             newState.companies = updatedCompanies;
         break;
         case companyActionType.CompanyLogOut:
-            store.dispatch(userLogout())
-            newState.company = null;
+            store.dispatch(userLogout());
             break;
         case companyActionType.CompanyLogin:
             // store.dispatch(userLogin()) // not needed as it happens on logout

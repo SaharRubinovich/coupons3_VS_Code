@@ -13,7 +13,7 @@ function GetCompanyDetails(): JSX.Element {
         if(store.getState().authState.userType != "COMPANY"){
             navigate("../login", {replace:true});
         }else{
-            setCompany(store.getState().companyState.company);
+            setCompany(store.getState().authState.company);
         }
     },[])
 

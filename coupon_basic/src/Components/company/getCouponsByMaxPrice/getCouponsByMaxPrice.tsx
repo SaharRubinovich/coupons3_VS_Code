@@ -17,12 +17,12 @@ function GetCouponsByMaxPrice(): JSX.Element {
         if(store.getState().authState.userType != "COMPANY"){
             return navigate("../login", {replace: true});
         } 
-        setCoupons(store.getState().companyState.company.coupons);
+        setCoupons(store.getState().authState.company.coupons);
         setFilteredCoupons(coupons);
     },[]);
     
     useEffect(()=>{
-        setFilteredCoupons(coupons.filter(item => item.price == price));
+        setFilteredCoupons(coupons.filter(item => item.price <= price));
     },[price])
 
     const resetChoice = () => {

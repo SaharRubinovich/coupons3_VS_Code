@@ -1,4 +1,4 @@
-import { Select, MenuItem, TextField, Button, Input } from "@mui/material";
+import { Select, MenuItem, TextField, Button, Input, InputLabel } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import Coupon from "../../../modal/Coupon";
@@ -11,6 +11,9 @@ import globals from "../../../util/global";
 import advNotify from "../../../util/notify_advanced";
 import { store } from "../../../redux/store";
 import {AddCoupon as addCoupon} from "../../../redux/couponsState"
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import  LocalizationProvider  from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker as muiDatePicker } from '@mui/x-date-pickers/DatePicker';
 
 
 function AddCoupon(): JSX.Element {
@@ -91,9 +94,11 @@ function AddCoupon(): JSX.Element {
                 />
                 <section>{errors.price?.message}</section>
                 <br/><br/>
-                <DatePicker selected={startDate} onChange={(date:Date) => setStartDate(date)} required/>
+                <InputLabel>תאריך התחלה</InputLabel>
+                <DatePicker selected={startDate} dateFormat="mm-dd-yyyy" strictParsing placeholderText="תאריך התחלה" onChange={(date:Date) => setStartDate(date)} required/>
                 <br/><br/>
-                <DatePicker selected={endDate} minDate={startDate} onChange={(date:Date) => setEndDate(date)} required/>
+                <InputLabel>תאריך סיום</InputLabel>
+                <DatePicker selected={endDate} minDate={startDate} dateFormat="mm-dd-yyyy" strictParsing placeholderText="תאריך סיום" onChange={(date:Date) => setEndDate(date)} required/>
                 <br/><br/>
                 <Select label="Category" defaultValue={""} name="Category" onChange={choice} style={{textAlign: 'center'}}>
                 <MenuItem value={categories.COSMETICS}>Cosmetics</MenuItem>

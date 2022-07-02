@@ -1,5 +1,7 @@
 
 import jwt_decode  from 'jwt-decode';
+import Company from '../modal/Company';
+import Customer from '../modal/Customer';
 
 
 export class authState{
@@ -7,12 +9,16 @@ export class authState{
     userType  : string = "";
     userToken : string = "";
     userId: string = "";
+    company?: Company;
+    customer?: Customer;
 }
 
 export enum authActionType{
     UserLogin = "UserLogin",
     UserLogout = "UserLogout",
     UpdateToken = "UpdateToken",
+    CustomerLogin = "CustomerLogin",
+    CompanyLogin = "CompanyLogin"
 }
 
 export interface authAction{
@@ -33,6 +39,13 @@ export function updateToken(userToken:string):authAction{
     return {type: authActionType.UpdateToken, payload:userToken};
 }
 
+export function companyLogin(company:Company):authAction{
+    return {type: authActionType.CompanyLogin, payload:company}
+}
+
+export function customerLogin(customer:Customer):authAction{
+    return {type: authActionType.CustomerLogin, payload:customer}
+}
 //reducer :)
 export function authReducer(currentState: authState = new authState, action:authAction):authState{
     const newState = {...currentState};
@@ -49,6 +62,12 @@ export function authReducer(currentState: authState = new authState, action:auth
         break;
 
         case authActionType.UserLogout:
+            if(newState.userType == "COMPANY"){
+                newState.company = undefined;
+            }
+            if(newState.userType == "CUSTOMER"){
+                newState.customer = undefined;
+            }
             newState.userToken = "";
             newState.userName = "";
             newState.userType = "";
@@ -59,7 +78,16 @@ export function authReducer(currentState: authState = new authState, action:auth
             newState.userToken = action.payload;
             //localStorage.setItem("jwt",action.payload);
         break;
+        case authActionType.CompanyLogin:
+            newState.company = action.payload;
+            break;
+        case authActionType.CustomerLogin:
+            newState.customer = action.payload;
+
+            break;
     }
 
     return newState;
 }
+
+export default authState;

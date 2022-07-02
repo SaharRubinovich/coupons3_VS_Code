@@ -18,7 +18,7 @@ function GetCustomerCouponsByMoney(): JSX.Element {
             advNotify.error("User must be logged in");
             navigate("../login");
         }else{
-            setCoupons(store.getState().customersState.customer.coupons);
+            setCoupons(store.getState().authState.customer.coupons);
         }
     },[])
 

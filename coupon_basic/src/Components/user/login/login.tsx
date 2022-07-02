@@ -18,9 +18,9 @@ import advNotify from "../../../util/notify_advanced";
 import { useNavigate } from "react-router-dom";
 import { store } from "../../../redux/store";
 //import { useDispatch } from 'react-redux';
-import { downloadCompanies, loginCompany } from "../../../redux/companyState";
+import { downloadCompanies } from "../../../redux/companyState";
 import { useState } from "react";
-import { userLogin } from "../../../redux/authState";
+import { userLogin, companyLogin as loginCompany, customerLogin as loginCustomer } from "../../../redux/authState";
 import { useDispatch } from "react-redux";
 import { downloadCustomer } from "../../../redux/customersState";
 import Customer from "../../../modal/Customer";
@@ -65,7 +65,8 @@ function Login(): JSX.Element {
     jwtAxios
       .get<Company>(globals.urls.getCompanyDetails)
       .then((response) => {
-          store.dispatch(loginCompany(response.data))
+          store.dispatch(loginCompany(response.data));
+          //console.log(store.getState().authState.company);
       })
       .catch((err) => {
         advNotify.error(err);
@@ -108,8 +109,8 @@ function Login(): JSX.Element {
           jwtAxios
             .get<Customer>(globals.urls.getCustomerDetails)
             .then((response) => {
-                console.log(response.data);
-                store.getState().customersState.customer = response.data;
+                //console.log(response.data);
+                store.dispatch(loginCustomer(response.data));
               
             })
             .catch((err) => {
@@ -182,10 +183,6 @@ function Login(): JSX.Element {
           <MenuItem value="CUSTOMER">Customer</MenuItem>
         </Select>
         <br />
-        <br />
-
-        {/*<FormControlLabel name="showNotifications" label="זכור אותי, אני חמוד" control={<Checkbox/>} {...register("remmberMe")}/>*/}
-
         <br />
         <ButtonGroup variant="contained" fullWidth>
           <Button type="submit" color="primary">

@@ -32,7 +32,7 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
     useEffect(()=>{
         setUserType(store.getState().authState.userType);
         if(userType == "CUSTOMER"){
-            if(store.getState().customersState.customer.coupons.find(item => item.id == props.coupon.id)){
+            if(store.getState().authState.customer.coupons.find(item => item.id == props.coupon.id)){
                 setValidCoupon(false);
             }
         }
@@ -53,9 +53,9 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
                     <Card.Text>{props.coupon.startDate + ' - ' + props.coupon.endDate}</Card.Text>
                     <Card.Text>{"כמות: " + amount}</Card.Text>
                     <Card.Text>{"מחיר: " + props.coupon.price}</Card.Text>
-                    {userType == "COMPANY" ? <><Button variant="contained" color="primary" onClick={onClickUpdate} style={{ margin: "10px" }}>עדכן קופון</Button><Button variant="contained" color="error" onClick={onClickDelete} style={{ margin: "10px" }}>מחק קופון</Button></> : ''}
+                    {userType == "COMPANY" ? <><Button variant="contained" color="primary" onClick={onClickUpdate} style={{ margin: "10px" }}>עדכן קופון</Button>
+                    <Button variant="contained" color="error" onClick={onClickDelete} style={{ margin: "10px" }}>מחק קופון</Button></> : ''}
                     {userType == "CUSTOMER" ? <><Button variant="contained" color="primary" onClick={addToCartButton} disabled={!validCoupon}>רכוש</Button></>:''}
-                    
                 </Card.Body>
             </Card>
         </div>

@@ -3,7 +3,7 @@ import globals from "../util/global";
 import jwtAxios from "../util/JWTaxios";
 import advNotify from "../util/notify_advanced";
 import { store } from "./store";
-import { userLogout } from './authState';
+import authState, { userLogout } from './authState';
 
 export class customersState{
     customers: Customer[];
@@ -39,7 +39,8 @@ export function updateCustomer(customer: Customer):customersAction{
 export function deleteCustomer(customerId: number):customersAction{
     return {type: customersActionType.DeleteCustomer, payload:customerId};
 }
-export function CustomerLogout():customersAction{
+export function customerLogout():customersAction{
+    console.log("hi2");
     return {type: customersActionType.CustomerLogout};
 }
 
@@ -80,8 +81,13 @@ export function customerReducer(currentState: customersState = new customersStat
             newState.customers = newState.customers.filter(item => item.id != action.payload.id);
         break;
         case customersActionType.CustomerLogout:
+            console.log("hi");
             store.dispatch(userLogout());
-            newState.customer = null;
+            //newState.customer.coupons = [];
+            //newState.customer.email = "";
+            //newState.customer.firstName = '';
+            //newState.customer.lastName = '';
+            //newState.customer.password = '';
             break;
     }
     return newState;
