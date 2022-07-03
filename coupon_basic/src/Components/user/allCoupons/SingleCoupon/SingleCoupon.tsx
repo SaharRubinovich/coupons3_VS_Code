@@ -82,14 +82,15 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
         }
     })
     return (
-        <div className="SingleCoupon SolidBox" dir="rtl">
-			<Card style={{maxWidth: "300px", maxHeight: "600px"}}>
+        <div className="SingleCoupon" dir="rtl">
+			<Card border="dark" style={{maxWidth: "300px", maxHeight: "600px"}}>
                 <Card.Img variant="top" src={couponImg} style={{maxWidth:"220px"}}/>
                 <Card.Body>
                     <Card.Title>{props.coupon.title}</Card.Title>
                     <Card.Text>{props.coupon.category}</Card.Text>
                     <Card.Text>{props.coupon.description}</Card.Text>
-                    <Card.Text>{props.coupon.startDate + ' - ' + props.coupon.endDate}</Card.Text>
+                    <Card.Text>{"תאריך תחילה: " + props.coupon.startDate}</Card.Text>
+                    <Card.Text>{"תאריך סיום: " + props.coupon.endDate}</Card.Text>
                     <Card.Text>{"כמות: " + amount}</Card.Text>
                     <Card.Text>{"מחיר: " + props.coupon.price}</Card.Text>
                     {userType == "COMPANY" ? <><Button variant="contained" color="primary" onClick={onClickUpdate} style={{ margin: "10px" }}>עדכן קופון</Button>

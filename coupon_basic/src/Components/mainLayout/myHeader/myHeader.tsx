@@ -1,11 +1,17 @@
 import { NavLink } from "react-router-dom";
 import "./myHeader.css";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Badge, BadgeProps, Button, IconButton, styled } from "@mui/material";
+import {
+  AppBar,
+  Badge,
+  BadgeProps,
+  Button,
+  IconButton,
+  styled,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { store } from "../../../redux/store";
 import { userLogout } from "./../../../redux/authState";
-import { logoutCompany } from "../../../redux/companyState";
-import { customerLogout } from "../../../redux/customersState";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -20,10 +26,11 @@ function MyHeader(): JSX.Element {
       padding: "0 4px",
     },
   }));
-  const openCart = () => {
-    store.getState().cartState.isOpen = true;
-  };
+
   const [userType, setUserType] = useState("");
+  const login = () => {
+    navigate("/login");
+  };
   const logout = () => {
     if (store.getState().authState.userType == "CUSTOMER") {
       //store.dispatch(userLogout());
@@ -42,21 +49,81 @@ function MyHeader(): JSX.Element {
     if (userType == "") {
       return (
         <>
-          <NavLink to="/login">כניסה למערכת</NavLink>
+          <Button
+            color="inherit"
+            onClick={login}
+            style={{ position: "fixed", left: "2%" }}
+          >
+            התחברות
+          </Button>{" "}
         </>
       );
     } else {
       return (
         <>
-          <Button variant="outlined" color="primary" onClick={logout}>
+          <Button
+            color="inherit"
+            onClick={logout}
+            style={{ position: "fixed", left: "2%" }}
+          >
             התנתקות
           </Button>
         </>
       );
     }
   };
+  const menuDisplay = () => {
+    if (userType == "ADMIN") {
+      return (
+        <div id="userMenu">
+          <NavLink to="admin/addCompany" className={"navLinkCss"}>
+            הוספת חברה
+          </NavLink>
+          <NavLink to="admin/addCustomer" className={"navLinkCss"}>
+            הוספת לקוח
+          </NavLink>
+          <NavLink to="admin/getAllCompanies" className={"navLinkCss"}>
+            הצגת חברות
+          </NavLink>
+          <NavLink to="admin/getAllCustomers" className={"navLinkCss"}>
+            הצגת לקוחות
+          </NavLink>
+          <NavLink to="admin/getCustomer" className={"navLinkCss"}>
+            קבלת לקוח
+          </NavLink>
+          <NavLink to="admin/getOneCompany" className={"navLinkCss"}>
+            קבלת חברה
+          </NavLink>
+        </div>
+      );
+    }
+    if (userType == "COMPANY") {
+      return (
+        <div id="companyMenu">
+          <NavLink to="company/addCoupon" className={"navLinkCss"}>הוספת קופון</NavLink>
+          <NavLink to="company/getAllCompanyCoupons" className={"navLinkCss"}>רשימת קופונים</NavLink>
+          <NavLink to="company/getCompanyDetails" className={"navLinkCss"}>פרטי חברה</NavLink>
+          <NavLink to="company/getCouponsByCategory" className={"navLinkCss"}>קופון לפי קטגוריה</NavLink>
+          <NavLink to="company/getCouponsByMaxPrice" className={"navLinkCss"}>קופון לפי מחיר</NavLink>
+        </div>
+      );
+    }
+    if (userType == "CUSTOMER") {
+      return (
+        <div id="customerMenu">
+          <NavLink to="customer/getCustomerCoupons" className={"navLinkCss"}>רשימת קופונים</NavLink>
+          <NavLink to="customer/getCustomerCouponsByCategory" className={"navLinkCss"}>קופונים לפי קטגוריה</NavLink>
+          <NavLink to="customer/getCustomerCouponsByMaxPrice" className={"navLinkCss"}>קופונים לפי מחיר</NavLink>
+          <NavLink to="customer/getCustomerDetails" className={"navLinkCss"}>פרטי לקוח</NavLink>
+        </div>
+      );
+    } else {
+      return <></>;
+    }
+  };
   useEffect(() => {
     display();
+    menuDisplay();
   }, [userType]);
   store.subscribe(() => {
     if (store.getState().authState.userType !== userType) {
@@ -65,10 +132,24 @@ function MyHeader(): JSX.Element {
   });
   return (
     <div className="myHeader">
-      <h1>מערכת פאקינג קופונים</h1>
+      {/**<h1>מערכת פאקינג קופונים</h1>*/}
+      <AppBar position="fixed" style={{ display: "flex" }}>
+        <Toolbar>
+          <Typography
+            variant="h4"
+            sx={{ flexGrow: 1 }}
+            style={{ position: "absolute" }}
+          >
+            מערכת קופונים
+          </Typography>
+          {menuDisplay()}
+          <NavLink to="/allCoupons" className={"navLinkCss"} style={{left: "7%", position:"fixed"}}>כל הקופונים</NavLink>       
+          {display()}
+        </Toolbar>
+      </AppBar>
       <br />
       <div style={{ textAlign: "end", padding: "0px 0px 0px 30px" }}>
-        {display()}
+        {/*display()*/}
       </div>
     </div>
   );

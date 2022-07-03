@@ -1,3 +1,32 @@
 .myHeader {
-	
+	display: flex;
+    flex-wrap: wrap;
+}
+
+#userMenu{
+    align-content: center;
+    position: relative;
+    right: 12%;
+    width: 60%;
+}
+
+#customerMenu{
+    align-content: center;
+    position: relative;
+    right: 7%;
+    width: 60%;
+}
+#companyMenu{
+    align-content: center;
+    position: relative;
+    right: 10%;
+    width: 60%;
+}
+
+.navLinkCss{
+    color: white;
+    margin: 1%;
+}   
+.navLinkCss:hover{
+    color: aliceblue;
 }

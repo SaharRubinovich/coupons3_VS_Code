@@ -164,6 +164,7 @@ function AddCoupon(): JSX.Element {
           />
           <br />
           <br />
+          <InputLabel>קטגוריה</InputLabel>
           <Select
             label="Category"
             defaultValue={""}

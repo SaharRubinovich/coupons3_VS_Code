@@ -12,7 +12,7 @@ class DevelopmentGlobals extends Globals{
         listCustomers: "http://localhost:8080/admin/getAllCustomers",
         deleteCompany: "http://localhost:8080/admin/deleteCompany/",
         deleteCustomer: "http://localhost:8080/admin/deleteCustomer/",
-        getCustomer: "http://localhost:8080/admin//getCustomer?customerId=",
+        getCustomer: "http://localhost:8080/admin/getCustomer?customerId=",
         updateCompany: "http://localhost:8080/admin/updateCompany",
         getCompany: "http://localhost:8080/admin/getOneCompany?companyId=",
         UpdateCustomer: "http://localhost:8080/admin/updateCustomer",

@@ -8,6 +8,11 @@ html, body, #root{
     background-color: rgb(227, 227, 227);
 }
 
+html{
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
 
 a{
     color: blue;
@@ -23,7 +28,6 @@ a{
     box-shadow: 5px 5px 10px;
 }
 .SolidBox{
-    display: inline-block;
     text-align: left;
     border: 2px solid black;
     padding: 5px;
