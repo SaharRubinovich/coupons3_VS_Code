@@ -14,7 +14,7 @@ function GetAllCompanyCoupons(): JSX.Element {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   let redCoupons = useSelector((selectStore: any) => 
   {
-    console.log(5);
+    //console.log(5);
     return selectStore.couponsState.coupons.filter((item:Coupon) => item.companyId == selectStore.authState.company.id);
   });
   useEffect(() => {

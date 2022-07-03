@@ -9,12 +9,21 @@ import globals from "../../../util/global";
 import { useEffect } from 'react';
 import advNotify from "../../../util/notify_advanced";
 import { store } from "../../../redux/store";
+import { useNavigate } from "react-router-dom";
 
 function GetCustomer(): JSX.Element {
     const [customer,setCustomer] = useState(new Customer);
     const [userInput,setUserInput] = useState('');
     const [valid,setValid] = useState(false);
     const [display,setDisplay] = useState(false);
+    const navigate = useNavigate();
+
+ useEffect(()=> {
+  if(store.getState().authState.userType != "ADMIN"){
+    advNotify.error("Must be logged in");
+    navigate("../login");
+  }
+ },[])
 
     const cleanInput = () => {
         setUserInput('');

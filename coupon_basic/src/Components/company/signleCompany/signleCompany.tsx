@@ -25,11 +25,12 @@ function SignleCompany(props: SignleCompanyProps): JSX.Element {
             store.dispatch(deleteCompany(props.company.id));
             } else {
                 advNotify.error("בעיה קרתה במחיקת חברה");
-                console.log(response);
+                //console.log(response);
             }
         })
         .catch(err => {
-            console.log(err);
+            //console.log(err);
+            advNotify.error(err.response.data.message + err.response.data.description);
         })
         
     }

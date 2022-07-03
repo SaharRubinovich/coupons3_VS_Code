@@ -30,7 +30,7 @@ function DeleteCouponPage(): JSX.Element {
             }
         })
         .catch(err => {
-            advNotify.error(err.message);
+            advNotify.error(err.response.data.message + err.response.data.description);
         })
         
     }else{

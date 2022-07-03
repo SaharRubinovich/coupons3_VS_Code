@@ -8,12 +8,21 @@ import "./addCompany.css";
 import advNotify from './../../../util/notify_advanced';
 import { store } from "../../../redux/store";
 import { addCompany, downloadCompanies } from "../../../redux/companyState";
+import { useNavigate } from "react-router-dom";
 
 function AddCompany(): JSX.Element {
  const [name,setName] = useState('');
  const [email,setEmail] = useState('');
  const [password,setPassword] = useState('');
  const [valid,setValid] = useState(false);
+ const navigate = useNavigate();
+
+ useEffect(()=> {
+  if(store.getState().authState.userType != "ADMIN"){
+    advNotify.error("Must be logged in");
+    navigate("../login");
+  }
+ },[])
 
  useEffect(()=>{
    if (name !='' && password!='' && email.includes("@")){
@@ -42,7 +51,7 @@ function AddCompany(): JSX.Element {
             }
         })
         .catch(err =>{
-            advNotify.error(err.message);
+            advNotify.error(err.response.data.message + err.response.data.description);
         })
         setName('');
         setPassword('');

@@ -6,7 +6,7 @@ import {
   Input,
   InputLabel,
 } from "@mui/material";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Coupon from "../../../modal/Coupon";
 import { categories } from "../../user/allCoupons/Categories/Categories";
@@ -18,9 +18,8 @@ import globals from "../../../util/global";
 import advNotify from "../../../util/notify_advanced";
 import { store } from "../../../redux/store";
 import { AddCoupon as addCoupon } from "../../../redux/couponsState";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import LocalizationProvider from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker as muiDatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useNavigate } from "react-router-dom";
+
 
 function AddCoupon(): JSX.Element {
   const [category, setcategory] = useState("");
@@ -36,6 +35,14 @@ function AddCoupon(): JSX.Element {
   const [amount, setAmount] = useState(0);
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
+  const navigate = useNavigate();
+
+ useEffect(()=> {
+  if(store.getState().authState.userType != "COMPANY"){
+    advNotify.error("Must be logged in");
+    navigate("/login");
+  }
+ },[])
 
   const choice = (event: { target: { value: string } }) => {
     setcategory(event.target.value as string);
@@ -59,7 +66,7 @@ function AddCoupon(): JSX.Element {
     coupon.endDate = endDate;
     coupon.amount = amount;
     coupon.price = price;
-    console.log(coupon);
+    //console.log(coupon);
     jwtAxios
       .post(globals.urls.addCoupon, coupon)
       .then((response) => {
@@ -71,15 +78,16 @@ function AddCoupon(): JSX.Element {
                 store.dispatch(addCoupon(couponResponse.data));
             })
             .catch((err) => {
-              console.log(err);
+              //console.log(err);
+              advNotify.error(err.response.data.message + err.response.data.description);
             });
         } else {
           advNotify.error("משהו לא עבד");
         }
       })
       .catch((err) => {
-        console.log(err);
-        advNotify.error(err.message);
+        //console.log(err);
+        advNotify.error(err.response.data.message + err.response.data.description);
       });
   };
 

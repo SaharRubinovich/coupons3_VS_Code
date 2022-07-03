@@ -47,7 +47,7 @@ function Login(): JSX.Element {
         store.dispatch(downloadCompanies(response.data));
       })
       .catch((err) => {
-        advNotify.error(err.data);
+        advNotify.error(err.response.data.message + err.response.data.description);
       });
     jwtAxios
       .get(globals.urls.listCustomers)
@@ -55,7 +55,7 @@ function Login(): JSX.Element {
         store.dispatch(downloadCustomer(response.data));
       })
       .catch((err) => {
-        advNotify.error(err.data);
+        advNotify.error(err.response.data.message + err.response.data.description);
       });
     //console.log(store.getState().companyState.company);
     //console.log(store.getState().customersState.customers);
@@ -69,7 +69,7 @@ function Login(): JSX.Element {
           //console.log(store.getState().authState.company);
       })
       .catch((err) => {
-        advNotify.error(err);
+        advNotify.error(err.response.data.message + err.response.data.description);
       });
   };
 
@@ -77,11 +77,11 @@ function Login(): JSX.Element {
     jwtAxios
       .get<Customer>(globals.urls.getCustomerDetails)
       .then((response) => {
-          console.log(response.data);
+         // console.log(response.data);
           store.getState().customersState.customer = response.data;
       })
       .catch((err) => {
-        advNotify.error(err);
+        advNotify.error(err.response.data.message + err.response.data.description);
       });
   };
 
@@ -114,14 +114,14 @@ function Login(): JSX.Element {
               
             })
             .catch((err) => {
-              advNotify.error(err);
+              advNotify.error(err.response.data.message + err.response.data.description);
             });
         }
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
-        advNotify.error(err.response.data.description);
+        advNotify.error(err.response.data.message + err.response.data.description);
       });
     setUserType("");
   };

@@ -47,17 +47,17 @@ function UpdateCustomer(): JSX.Element {
 
     const send= (msg:Customer) => {
         msg.id=customer.id;
-        console.log(msg);
+        //console.log(msg);
         
         jwtAxios.put(globals.urls.UpdateCustomer,msg)
         .then(response => {
-            console.log(response);
+            //console.log(response);
             store.dispatch(updateCustomer(msg));
             navigate("../admin/getAllCustomers",{replace:true});
         })
         .catch(err => {
-            console.log(err);
-            advNotify.error(err.response);
+           // console.log(err);
+            advNotify.error(err.response.data.message + err.response.data.description);
         })
        
     };

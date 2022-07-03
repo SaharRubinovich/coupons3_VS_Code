@@ -1,5 +1,6 @@
 import { Button, ButtonGroup, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Company from "../../../modal/Company";
 import Customer from "../../../modal/Customer";
 import { store } from "../../../redux/store";
@@ -19,6 +20,14 @@ function GetOneCompany(): JSX.Element {
   const [userInput, setUserInput] = useState("");
   const [valid, setValid] = useState(false);
   const [display, setDisplay] = useState(false);
+  const navigate = useNavigate();
+
+ useEffect(()=> {
+  if(store.getState().authState.userType != "ADMIN"){
+    advNotify.error("Must be logged in");
+    navigate("../login");
+  }
+ },[])
 
 
   const inputHandler = (event: { target: { value: string } }) => {

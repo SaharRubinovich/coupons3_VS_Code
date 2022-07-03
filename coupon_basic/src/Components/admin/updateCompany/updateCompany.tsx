@@ -31,7 +31,7 @@ function UpdateCompany(): JSX.Element {
     const send = (msg:Company) => {
         msg.id = id;
         msg.name = name;
-        console.log(msg);
+        //console.log(msg);
         
         jwtAxios.put(globals.urls.updateCompany, msg)
         .then(response => {
@@ -43,7 +43,7 @@ function UpdateCompany(): JSX.Element {
             }
         })
         .catch(err => {
-            advNotify.error(err.data);
+            advNotify.error(err.response.data.message + err.response.data.description);
         })
         
     };

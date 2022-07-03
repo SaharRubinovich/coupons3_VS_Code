@@ -27,7 +27,7 @@ function MyHeader(): JSX.Element {
   const logout = () => {
     if (store.getState().authState.userType == "CUSTOMER") {
       //store.dispatch(userLogout());
-      console.log("hi1")
+      //console.log("hi1")
       store.dispatch(userLogout());
     }
     if (store.getState().authState.userType == "COMPANY") {

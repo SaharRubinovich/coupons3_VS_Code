@@ -11,9 +11,7 @@ import DatePicker from "react-datepicker";
 import jwtAxios from "../../../util/JWTaxios";
 import globals from "../../../util/global";
 import {UpdateCoupon as updateCoupon} from "../../../redux/couponsState";
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker as muiDatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 interface stateId{
     from: {id:number}
@@ -34,15 +32,15 @@ function UpdateCoupon(): JSX.Element {
 
     const state = store.getState()
     useEffect(()=>{
-        console.log(id);
+        //console.log(id);
         if(state.authState.userType === "COMPANY"){
         setStartDate(coupon.startDate);
         //setStartDateString();
-        console.log(startDate);
+       // console.log(startDate);
        // console.log(startDateString);
         setEndDate(coupon.endDate);
        // setEndDateString(new Date(coupon.endDate).toLocaleDateString());
-        console.log(endDate);
+       // console.log(endDate);
        // console.log(endDateString);
         } else{
             advNotify.error("Must be logged in");
@@ -77,7 +75,7 @@ function UpdateCoupon(): JSX.Element {
         msg.endDate = endDate;
         msg.amount = coupon.amount;
         msg.price = coupon.price;
-        console.log(msg);
+       // console.log(msg);
         jwtAxios.put(globals.urls.updateCoupon,msg)
         .then(response=>{
             if (response.status < 300){
@@ -88,7 +86,7 @@ function UpdateCoupon(): JSX.Element {
             }
         })
         .catch(err =>{
-            advNotify.error(err.message);
+            advNotify.error(err.response.data.message + err.response.data.description);
         })
          
     };
@@ -97,8 +95,8 @@ function UpdateCoupon(): JSX.Element {
             <div/>
         )
     }
-    console.log(startDate)
-    console.log(endDate)
+   // console.log(startDate)
+  //  console.log(endDate)
     return (
         <div className="updateCoupon SolidBox">
 			<h1>עידכון קופון</h1><hr/>

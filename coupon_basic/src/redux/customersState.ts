@@ -40,7 +40,6 @@ export function deleteCustomer(customerId: number):customersAction{
     return {type: customersActionType.DeleteCustomer, payload:customerId};
 }
 export function customerLogout():customersAction{
-    console.log("hi2");
     return {type: customersActionType.CustomerLogout};
 }
 
@@ -72,7 +71,6 @@ export function customerReducer(currentState: customersState = new customersStat
             newState.customers = newState.customers.filter(item => item.id != action.payload);
         break;
         case customersActionType.CustomerLogout:
-            console.log("hi");
             store.dispatch(userLogout());
             //newState.customer.coupons = [];
             //newState.customer.email = "";

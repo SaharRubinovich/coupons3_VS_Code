@@ -34,7 +34,7 @@ function Menu(): JSX.Element {
             <>
                 תפריט חברה<br/>
                 <NavLink to="company/addCoupon">הוספת קופון</NavLink><br/>
-                <NavLink to="company/deleteCoupon">מחיקת קופון</NavLink><br/>
+                {/**  <NavLink to="company/deleteCoupon">מחיקת קופון</NavLink><br/>*/}
                 <NavLink to="company/getAllCompanyCoupons">רשימת קופונים</NavLink><br/>
                 <NavLink to="company/getCompanyDetails">פרטי חברה</NavLink><br/>
                 <NavLink to="company/getCouponsByCategory">קופון לפי קטגוריה</NavLink><br/>

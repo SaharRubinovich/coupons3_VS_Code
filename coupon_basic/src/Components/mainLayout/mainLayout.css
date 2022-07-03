@@ -18,7 +18,6 @@
 }
 
 .mainLayout,.mainLayout>*{
-    border: 1px solid black;
 }
 
 .mainLayout>footer{

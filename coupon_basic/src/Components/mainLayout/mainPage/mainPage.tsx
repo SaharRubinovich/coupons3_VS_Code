@@ -6,6 +6,7 @@ import { store } from "../../../redux/store";
 import jwtAxios from "../../../util/JWTaxios";
 import globals from "../../../util/global";
 import { DownloadCoupons } from "../../../redux/couponsState";
+import advNotify from "../../../util/notify_advanced";
 
 function MainPage(): JSX.Element {
     
@@ -17,7 +18,8 @@ function MainPage(): JSX.Element {
                //console.log(store.getState().couponsState.coupons);
            })
            .catch(err => {
-               console.log(err);
+               //console.log(err);
+               advNotify.error(err.response.data.message + err.response.data.description);
            })
        }
    },[])

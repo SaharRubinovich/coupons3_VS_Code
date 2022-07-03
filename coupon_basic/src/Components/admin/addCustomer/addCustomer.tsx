@@ -8,6 +8,7 @@ import globals from "../../../util/global";
 import advNotify from "../../../util/notify_advanced";
 import { store } from "../../../redux/store";
 import { addCustomer, downloadCustomer } from "../../../redux/customersState";
+import { useNavigate } from "react-router-dom";
 
 function AddCustomer(): JSX.Element {
     const [firstName,setFirstName] = useState('');
@@ -15,7 +16,15 @@ function AddCustomer(): JSX.Element {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [validForm, setValid] = useState(false);
-       
+    const navigate = useNavigate();
+
+    useEffect(()=> {
+     if(store.getState().authState.userType != "ADMIN"){
+       advNotify.error("Must be logged in");
+       navigate("../login");
+     }
+    },[])
+    
     const {handleSubmit,formState: { errors },} = useForm<Customer>();
 
     const firstNameHandler = (event: { target: { value: string; }; }) => {
@@ -44,11 +53,11 @@ function AddCustomer(): JSX.Element {
         msg.firstName = firstName;
         msg.lastName = lastName;
         msg.password = password;
-        console.log(msg);
+        //console.log(msg);
 
         jwtAxios.post(globals.urls.addCustomer,msg)
         .then(response => {
-            console.log(response);
+            //console.log(response);
             advNotify.success("לקוח חדש נוסף");
             jwtAxios.get(globals.urls.listCustomers)
             .then(response => {
@@ -59,7 +68,7 @@ function AddCustomer(): JSX.Element {
                 }
             })
             .catch(err =>{
-                advNotify.error(err.message);
+                advNotify.error(err.response.data.message + err.response.data.description);
             })
             setFirstName('');
             setLastName('');
@@ -67,7 +76,8 @@ function AddCustomer(): JSX.Element {
             setPassword('');
         })
         .catch(err => {
-            console.log(err);
+            //console.log(err);
+            advNotify.error(err.response.data.message + err.response.data.description);
         })
     }
 

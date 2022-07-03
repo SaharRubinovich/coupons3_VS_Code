@@ -43,7 +43,7 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
             }
         })
         .catch(err => {
-            advNotify.error(err);
+            advNotify.error(err.response.data.message + err.response.data.description);
         })
     };
     const onClickUpdate = () => {
@@ -67,7 +67,7 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
       })
       .catch(err =>{
         console.log(err);
-        advNotify.error(err.message);
+        advNotify.error(err.response.data.message + err.response.data.description);
         setIsLoading(false)
       })
     };

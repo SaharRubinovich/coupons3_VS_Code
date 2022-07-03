@@ -73,7 +73,7 @@ class ProductionGlobals extends Globals{
         purchaseCoupon: "customer/purchaseCoupon",
 
         /* Guest Links */
-        getAllCoupons: "/allCoupons"
+        getAllCoupons: "/coupons/allCoupons"
     }
 }
 

@@ -26,7 +26,7 @@ function DeleteCompany(): JSX.Element {
         if(id===undefined){
             return navigate("../admin/getAllCompanies", {replace:true});
         }
-        console.log(globals.urls.deleteCompany+id);
+        //console.log(globals.urls.deleteCompany+id);
         
         navigate("../admin/getAllCompanies", {replace:true});
     },[])
