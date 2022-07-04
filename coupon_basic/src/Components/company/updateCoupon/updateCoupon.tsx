@@ -98,7 +98,7 @@ function UpdateCoupon(): JSX.Element {
    // console.log(startDate)
   //  console.log(endDate)
     return (
-        <div className="updateCoupon SolidBox">
+        <div className="updateCoupon">
 			<h1>עידכון קופון</h1><hr/>
             <form onSubmit={handleSubmit(send)}>
             <TextField name="id" label="קוד" variant="outlined" {...register("id")} value={coupon.id} disabled/><br/><br/>

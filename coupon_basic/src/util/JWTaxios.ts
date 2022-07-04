@@ -21,7 +21,9 @@ jwtAxios.interceptors.response.use(response=>{
     //localStorage.setItem("jwt",response.headers.authorization);
     //store.getState().authState.userToken = response.headers.authorization
     //we must continue the delivery to the client
+    if("authorization" in response.headers){
     store.dispatch(updateToken(response.headers.authorization));
+}
     return response;
 });
 

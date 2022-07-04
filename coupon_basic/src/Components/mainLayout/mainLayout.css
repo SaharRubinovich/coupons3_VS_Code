@@ -27,6 +27,7 @@
 #page-container {
     position: relative;
     min-height: 100vh;
+    justify-content: center;
   }
 
 .footerCss{
@@ -47,6 +48,7 @@
     margin-top: 3%;
     min-height: 100vh;
     width: 100%;
+    justify-content: end;
   }
 .mainLayout>*{
   flex: 1 1 160px;

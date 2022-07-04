@@ -95,7 +95,7 @@ function AddCoupon(): JSX.Element {
     <div className="addCoupon">
       <h1>הוספת קופון</h1>
       <hr />
-      <div className="SolidBox">
+      <div className="">
         <form onSubmit={handleSubmit(send)}>
           <TextField
             name="title"

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { store } from "../../../../redux/store";
-import { addItem } from "../../../../redux/cartState";
 import couponImg from "../../../../assets/coupon.png"
 import jwtAxios from "../../../../util/JWTaxios";
 import globals from "../../../../util/global";
@@ -89,8 +88,8 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
                     <Card.Title>{props.coupon.title}</Card.Title>
                     <Card.Text>{props.coupon.category}</Card.Text>
                     <Card.Text>{props.coupon.description}</Card.Text>
-                    <Card.Text>{"תאריך תחילה: " + props.coupon.startDate}</Card.Text>
-                    <Card.Text>{"תאריך סיום: " + props.coupon.endDate}</Card.Text>
+                    <Card.Text>{"תאריך תחילה: " + props.coupon.startDate.toLocaleString()}</Card.Text>
+                    <Card.Text>{"תאריך סיום: " + props.coupon.endDate.toLocaleString()}</Card.Text>
                     <Card.Text>{"כמות: " + amount}</Card.Text>
                     <Card.Text>{"מחיר: " + props.coupon.price}</Card.Text>
                     {userType == "COMPANY" ? <><Button variant="contained" color="primary" onClick={onClickUpdate} style={{ margin: "10px" }}>עדכן קופון</Button>
