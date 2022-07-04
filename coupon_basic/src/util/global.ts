@@ -36,7 +36,8 @@ class DevelopmentGlobals extends Globals{
         purchaseCoupon: "http://localhost:8080/customer/purchaseCoupon",
 
         /* Guest Links */
-        getAllCoupons: "http://localhost:8080/coupons/allCoupons"
+        getAllCoupons: "http://localhost:8080/coupons/allCoupons",
+        page404: "http://localhost:8080/*"
     }
 }
 
@@ -73,7 +74,8 @@ class ProductionGlobals extends Globals{
         purchaseCoupon: "customer/purchaseCoupon",
 
         /* Guest Links */
-        getAllCoupons: "/coupons/allCoupons"
+        getAllCoupons: "/coupons/allCoupons",
+        page404: "/*"
     }
 }
 

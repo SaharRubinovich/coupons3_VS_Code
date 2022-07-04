@@ -92,7 +92,7 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
                     <Card.Text>{"תאריך סיום: " + props.coupon.endDate.toLocaleString()}</Card.Text>
                     <Card.Text>{"כמות: " + amount}</Card.Text>
                     <Card.Text>{"מחיר: " + props.coupon.price}</Card.Text>
-                    {userType == "COMPANY" ? <><Button variant="contained" color="primary" onClick={onClickUpdate} style={{ margin: "10px" }}>עדכן קופון</Button>
+                    {userType == "COMPANY" && store.getState().authState.company.id == props.coupon.companyId ? <><Button variant="contained" color="primary" onClick={onClickUpdate} style={{ margin: "10px" }}>עדכן קופון</Button>
                     <Button variant="contained" color="error" onClick={onClickDelete} style={{ margin: "10px" }}>מחק קופון</Button></> : ''}
                     {userType == "CUSTOMER" ? <><Button variant="contained" color="primary" onClick={addToCartButton} disabled={(myCoupons.findIndex(coupon => coupon.id == props.coupon.id) >= 0) || isLoading || props.coupon.amount == 0}>רכוש</Button></>:''}
                 </Card.Body>
