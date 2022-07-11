@@ -6,6 +6,8 @@ import {
   BadgeProps,
   Button,
   IconButton,
+  Menu,
+  MenuItem,
   styled,
   Toolbar,
   Typography,
@@ -15,17 +17,23 @@ import { userLogout } from "./../../../redux/authState";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 function MyHeader(): JSX.Element {
   const navigate = useNavigate();
-  const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-    "& .MuiBadge-badge": {
-      right: -3,
-      top: 13,
-      border: `2px solid ${theme.palette.background.paper}`,
-      padding: "0 4px",
-    },
-  }));
+  //const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };  
+
+  const toggleOpen = () => {
+    //setOpen(!open);
+  }
 
   const [userType, setUserType] = useState("");
   const login = () => {
@@ -45,17 +53,33 @@ function MyHeader(): JSX.Element {
     }
     navigate("../");
   };
+  const companyRegister = () => {navigate("../companyRegister")};
+  const customerRegister = () => {navigate("../customerRegister")};
   const display = () => {
     if (userType == "") {
       return (
         <>
+        <Button
+        color="inherit" onClick={handleClick} style={{ position: "fixed", left: "5%" , margin: "30px"}} 
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}>הרשמה</Button>
+        
+          <Menu         
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open} onClose={handleClose}>
+            <MenuItem onClick={companyRegister}>חברה</MenuItem>
+            <MenuItem onClick={customerRegister}>לקוח</MenuItem>
+          </Menu>
           <Button
             color="inherit"
             onClick={login}
             style={{ position: "fixed", left: "2%" }}
           >
             התחברות
-          </Button>{" "}
+          </Button>
         </>
       );
     } else {
@@ -143,7 +167,7 @@ function MyHeader(): JSX.Element {
             מערכת קופונים
           </Typography>
           {menuDisplay()}
-          <NavLink to="/allCoupons" className={"navLinkCss"} style={{left: "7%", position:"fixed"}}>כל הקופונים</NavLink>       
+          <NavLink to="/allCoupons" className={"navLinkCss"} style={{left: "12%", position:"fixed"}}>כל הקופונים</NavLink>       
           {display()}
         </Toolbar>
       </AppBar>
