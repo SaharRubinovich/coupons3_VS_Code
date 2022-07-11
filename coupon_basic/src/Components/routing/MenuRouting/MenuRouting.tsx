@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AddCompany from "../../admin/addCompany/addCompany";
 import AddCustomer from "../../admin/addCustomer/addCustomer";
 import DeleteCompany from "../../admin/deleteCompany/deleteCompany";
@@ -28,6 +28,8 @@ import Login from "../../user/login/login";
 import AllCoupons from "../../user/allCoupons/allCoupons";
 import CustomerCoupons from "../../user/allCoupons/customerCoupons/customerCoupons";
 import CompanyCoupons from "../../user/allCoupons/companyCoupons/companyCoupons";
+import CompanyRegister from "../../user/register/companyRegister/companyRegister";
+import CustomerRegister from "../../user/register/customerRegister/customerRegister";
 
 function MenuRouting(): JSX.Element {
     return (
@@ -68,7 +70,8 @@ function MenuRouting(): JSX.Element {
                 <Route path="login" element={<Login/>}/>
                 <Route path="guest" element={<MainPage/>}/>
                 <Route path="allCoupons" element={<AllCoupons/>}/>
-
+                <Route path="companyRegister" element={<CompanyRegister/>}/>
+                <Route path="customerRegister" element={<CustomerRegister/>}/>
                 <Route path="*" element={<Page404/>}/>
             </Routes>
         </div>
