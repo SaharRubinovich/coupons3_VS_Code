@@ -37,6 +37,8 @@ class DevelopmentGlobals extends Globals{
 
         /* Guest Links */
         getAllCoupons: "http://localhost:8080/coupons/allCoupons",
+        registerCustomer: "http://localhost:8080/guest/registerCustomer",
+        registerCompany: "http://localhost:8080/guest/registerCompany",
         page404: "http://localhost:8080/*"
     }
 }
@@ -75,6 +77,8 @@ class ProductionGlobals extends Globals{
 
         /* Guest Links */
         getAllCoupons: "/coupons/allCoupons",
+        registerCustomer: "/guest/registerCustomer",
+        registerCompany: "/guest/registerCompany",
         page404: "/*"
     }
 }

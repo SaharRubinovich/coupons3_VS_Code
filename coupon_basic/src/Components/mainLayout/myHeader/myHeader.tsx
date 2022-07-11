@@ -143,7 +143,8 @@ function MyHeader(): JSX.Element {
             מערכת קופונים
           </Typography>
           {menuDisplay()}
-          <NavLink to="/allCoupons" className={"navLinkCss"} style={{left: "7%", position:"fixed"}}>כל הקופונים</NavLink>       
+          <NavLink to="/allCoupons" className={"navLinkCss"} style={{left: "7%", position:"fixed"}}>כל הקופונים</NavLink>
+          <Button color="inherit">הרשמה</Button>      
           {display()}
         </Toolbar>
       </AppBar>
