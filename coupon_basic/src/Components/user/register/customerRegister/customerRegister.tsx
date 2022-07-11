@@ -2,6 +2,9 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Customer from "../../../../modal/Customer";
+import globals from "../../../../util/global";
+import jwtAxios from "../../../../util/JWTaxios";
+import advNotify from "../../../../util/notify_advanced";
 import "./customerRegister.css";
 
 function CustomerRegister(): JSX.Element {
@@ -26,7 +29,14 @@ function CustomerRegister(): JSX.Element {
     };
 
     const send = (customer: Customer) => {
-        console.log(customer);
+        //console.log(customer);
+        jwtAxios.post(globals.urls.registerCustomer, customer)
+        .then(response => {
+            advNotify.success("לקוח נוסף למערכת");
+        })
+        .catch(err => {
+            advNotify.error(err.response.data.message + err.response.data.description);
+        })
     };
     return (
         <div className="customerRegister">

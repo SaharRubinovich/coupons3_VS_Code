@@ -2,7 +2,10 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Company from "../../../../modal/Company";
+import globals from "../../../../util/global";
+import jwtAxios from "../../../../util/JWTaxios";
 import "./companyRegister.css";
+import advNotify from './../../../../util/notify_advanced';
 
 function CompanyRegister(): JSX.Element {
     const {register,handleSubmit, formState:{errors}} = useForm<Company>();
@@ -20,7 +23,14 @@ function CompanyRegister(): JSX.Element {
         setName(event.target.value as string);
     };
     const send = (company: Company) => {
-        console.log(company);
+        //console.log(company);
+        jwtAxios.post(globals.urls.registerCompany, company)
+        .then(response => {
+            advNotify.success("חברה נוספה")
+        })
+        .catch(error =>{
+            advNotify.error(error.response.data.message + error.response.data.description);
+        })
     };
 
     return (

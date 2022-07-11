@@ -53,8 +53,14 @@ function MyHeader(): JSX.Element {
     }
     navigate("../");
   };
-  const companyRegister = () => {navigate("../companyRegister")};
-  const customerRegister = () => {navigate("../customerRegister")};
+  const companyRegister = () => {
+    navigate("../companyRegister")
+    handleClose();
+  };
+  const customerRegister = () => {
+    navigate("../customerRegister")
+    handleClose();
+  };
   const display = () => {
     if (userType == "") {
       return (
@@ -167,12 +173,7 @@ function MyHeader(): JSX.Element {
             מערכת קופונים
           </Typography>
           {menuDisplay()}
-<<<<<<< HEAD
-          <NavLink to="/allCoupons" className={"navLinkCss"} style={{left: "7%", position:"fixed"}}>כל הקופונים</NavLink>
-          <Button color="inherit">הרשמה</Button>      
-=======
           <NavLink to="/allCoupons" className={"navLinkCss"} style={{left: "12%", position:"fixed"}}>כל הקופונים</NavLink>       
->>>>>>> a5f75f088d245259093b69b1f715aa703e5f116a
           {display()}
         </Toolbar>
       </AppBar>
