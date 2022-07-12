@@ -1,39 +1,32 @@
-import { Backdrop, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import Coupon from "../../modal/Coupon";
-import { toggleCart } from "../../redux/cartState";
 import { store } from "../../redux/store";
 import "./cart.css";
-import SingleCartItem from "./singleCartItem/singleCartItem";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Badge, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 function Cart(): JSX.Element {
-    const [coupons, setCoupons] = useState<Coupon[]>([]);
+    const navigate = useNavigate();
 
-    useEffect(()=>{
-        setCoupons(store.getState().cartState.coupons);
-    },[store.getState().cartState.coupons]);
-
-    const purchaseHandler = () => {
-        //store.dispatch(purchaseItem())
+    const handleClick = () => {
+        navigate("../shoppingCart");
     };
 
-    const closeWindow = () => {
-        store.dispatch(toggleCart())
-    };
-
+    let cartCoupons = useSelector((selectStore: any) => {
+        return selectStore.cartState.coupons;
+    });
+    
     return (
         <div className="cart">
-            <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={store.getState().cartState.isOpen}
-        onClick={closeWindow}>
-            <div className="cartBox">
-			{coupons.map(item=> <SingleCartItem key={item.id} coupon={item}/>)}
-            <br/><br/>
-            <Button variant="contained" color="primary" onClick={purchaseHandler}>רכישה</Button>
-            <Button variant="contained" color="error" onClick={closeWindow}>סגירה</Button>
-            </div>
-            </Backdrop>
+        <IconButton onClick={handleClick}>
+            <Badge color="primary" badgeContent={cartCoupons.length}>
+                <ShoppingCartIcon />
+            </Badge>
+        </IconButton>
         </div>
     );
 }

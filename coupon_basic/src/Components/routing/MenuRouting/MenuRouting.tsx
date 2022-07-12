@@ -30,6 +30,7 @@ import CustomerCoupons from "../../user/allCoupons/customerCoupons/customerCoupo
 import CompanyCoupons from "../../user/allCoupons/companyCoupons/companyCoupons";
 import CompanyRegister from "../../user/register/companyRegister/companyRegister";
 import CustomerRegister from "../../user/register/customerRegister/customerRegister";
+import CartPage from "../../cart/cartPage/cartPage";
 
 function MenuRouting(): JSX.Element {
     return (
@@ -65,6 +66,7 @@ function MenuRouting(): JSX.Element {
                 <Route path="customer/getCustomerCouponsByMaxPrice" element={<GetCustomerCouponsByMoney/>}/>
                 <Route path="customer/getCustomerDetails" element={<GetCustomerDetails/>}/>
                 <Route path="customer/purchaseCoupon" element={<PurchaseCoupon/>}/>
+                <Route path="shoppingCart" element={<CartPage/>}/>
 
                 {/* General */}
                 <Route path="login" element={<Login/>}/>

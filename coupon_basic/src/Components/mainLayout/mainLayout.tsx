@@ -11,6 +11,7 @@ import { store } from "../../redux/store";
 import globals from "../../util/global";
 import jwtAxios from "../../util/JWTaxios";
 import advNotify from "../../util/notify_advanced";
+import Cart from "../cart/cart";
 
 
 function MainLayout(): JSX.Element {
@@ -21,6 +22,9 @@ function MainLayout(): JSX.Element {
                 <header>
                     <MyHeader/>
                 </header>
+                <aside>
+                    <Cart/>
+                </aside>
                 <main id="content-wrap">
                     <MenuRouting/>                
                 </main>

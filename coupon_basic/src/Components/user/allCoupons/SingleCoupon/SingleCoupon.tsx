@@ -13,6 +13,7 @@ import advNotify from "../../../../util/notify_advanced";
 import {  purchaseItem } from "../../../../redux/authState";
 import { DeleteCoupon, UpdateCoupon } from "../../../../redux/couponsState";
 import { useSelector } from "react-redux";
+import { addItem } from "../../../../redux/cartState";
 
 interface SingleCouponProps {
 	coupon: Coupon;
@@ -27,6 +28,9 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
 
     const myCoupons: Coupon[] = useSelector((reduxStore:any) => {
         return reduxStore.authState.customer.coupons;
+    });
+    let cartCoupons: Coupon[] =  useSelector((selectStore: any) => {
+        return selectStore.cartState.coupons;
     });
 
     const onClickDelete = () => {
@@ -71,6 +75,10 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
       })
     };
 
+    const addItemToStore = () => {
+        store.dispatch(addItem(props.coupon))
+    };
+
     useEffect(()=>{
         setUserType(store.getState().authState.userType);
     },[])
@@ -94,7 +102,8 @@ function SingleCoupon(props: SingleCouponProps): JSX.Element {
                     <Card.Text>{"מחיר: " + props.coupon.price}</Card.Text>
                     {userType == "COMPANY" && store.getState().authState.company.id == props.coupon.companyId ? <><Button variant="contained" color="primary" onClick={onClickUpdate} style={{ margin: "10px" }}>עדכן קופון</Button>
                     <Button variant="contained" color="error" onClick={onClickDelete} style={{ margin: "10px" }}>מחק קופון</Button></> : ''}
-                    {userType == "CUSTOMER" ? <><Button variant="contained" color="primary" onClick={addToCartButton} disabled={(myCoupons.findIndex(coupon => coupon.id == props.coupon.id) >= 0) || isLoading || props.coupon.amount == 0}>רכוש</Button></>:''}
+                    {userType == "CUSTOMER" ? <><Button variant="contained" color="primary" onClick={addToCartButton} disabled={(myCoupons.findIndex(coupon => coupon.id == props.coupon.id) >= 0) || isLoading || props.coupon.amount == 0 ||  cartCoupons.findIndex(coupon => coupon.id == props.coupon.id) > 0}>רכוש</Button>
+                    <Button variant="contained" color="info" onClick={addItemToStore} disabled={(myCoupons.findIndex(coupon => coupon.id == props.coupon.id) >= 0) || isLoading || props.coupon.amount == 0 || cartCoupons.findIndex(coupon => coupon.id == props.coupon.id) > 0} style={{margin: "10px"}}>הוספה לסל</Button></>:''}
                 </Card.Body>
             </Card>
         </div>

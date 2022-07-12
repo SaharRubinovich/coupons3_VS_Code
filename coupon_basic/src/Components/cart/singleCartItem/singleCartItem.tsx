@@ -11,13 +11,10 @@ interface SingleCartItemProps{
 
 function SingleCartItem(props: SingleCartItemProps): JSX.Element {
 
-    const removeHandler = () => {
-        store.dispatch(removeItem(props.coupon.id));
-    };
+
     return (
         <div className="singleCartItem SolidBox">
-			<SingleCoupon key={props.coupon.id} coupon={props.coupon}/>
-            <Button variant="contained" color="error" onClick={removeHandler}>הסר</Button>
+
         </div>
     );
 }

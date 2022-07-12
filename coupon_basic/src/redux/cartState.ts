@@ -6,14 +6,12 @@ import { store } from "./store";
 
 export class cartState {
   coupons: Coupon[] = [];
-  isOpen: boolean = false;
 }
 
 export enum cartActionType {
   addItem = "addItem",
   removeItem = "removeItem",
   clearItems = "clearItems",
-  toggleCart = "toggleCart"
 }
 
 export interface cartAction {
@@ -31,15 +29,13 @@ export function removeItem(couponId: Number): cartAction {
 export function clearItems(): cartAction {
   return { type: cartActionType.clearItems };
 }
-export function toggleCart(): cartAction {
-  return {type: cartActionType.toggleCart};
-}
 
 export function cartReducer(
   currentState: cartState = new cartState(),
   action: cartAction
 ): cartState {
   var newState = { ...currentState };
+  newState.coupons = [...currentState.coupons];
 
   switch (action.type) {
     case cartActionType.addItem:
@@ -49,10 +45,7 @@ export function cartReducer(
         newState.coupons = newState.coupons.filter(item => item.id != action.payload);
       break;
     case cartActionType.clearItems:
-        newState.coupons = null;
-      break;
-    case cartActionType.toggleCart:
-      newState.isOpen = !newState.isOpen;
+        newState.coupons = [];
       break;
   }
   return newState;

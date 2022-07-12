@@ -1,5 +1,8 @@
 .cart {
-	
+	display: flex;
+    margin-top: 4%;
+    position: fixed;
+    z-index: 3;
 }
 
 .cartBox {
